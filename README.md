@@ -1,3 +1,4 @@
+[TOC]
 # effective-java
 Effective Java 第二版(Joshua Bloch)，学习代码，笔记
 
