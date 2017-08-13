@@ -1,17 +1,3 @@
-目录
-<!-- MarkdownTOC -->
-
-- effective-java
-- 项目内容
-- 78条建议
-    - 第二章 创建和销毁对象
-    - 第七章 方法
-    - 第八章 通用程序设计
-    - 第九章 异常
-    - 第十章：并发
-
-<!-- /MarkdownTOC -->
-
 # effective-java
 Effective Java 第二版(Joshua Bloch)，学习代码，笔记
 
@@ -42,6 +28,32 @@ public static Boolean valueOf(boolean b) {
 
 ### 2：遇到多个构造器参数时要考虑用构建器
 如果类的构造器或者静态工厂中具有多个参数，设计这种类时，Builder(建造者)模式是一种不错的选择
+### 3：用私有构造器或者枚举类型强化Singleton属性
+实现单例模式最好的方式是使用枚举，如下
+```
+public enum Elvis {
+    INSTANCE;
+    public void function() {}
+}
+```
+枚举实现的单例模式能够保证线程安全，提供序列化机制，防止多次实例化
+### 4：通过私有构造器强化不可实例化的能力
+在我们写一些工具类时，当我们不希望实例化此类，即类中只包含静态方法和静态域，我们可以为此类编写私有构造器，防止实例化此类。
+```
+public class UtilityClass {
+    // 抛出异常是为了防止在类的内部进行此类的实例化
+    private UtilityClass(){
+        throw new AssertionError();
+    }
+}
+```
+### 5：避免创建不必要的对象
+最好能重用对象而不是每次需要的时候就创建一个相同功能的新对象。
+```
+String s1 = new String("test");
+String s2 = "test";
+```
+使用s2要好于s1，s1会多创建一个对象
 ## 第七章 方法
 ### 38：检查参数的有效性
 编写方法时，我们应该考虑参数的限制，并且把限制写在文档中，通过显式的检查来实施限制。
